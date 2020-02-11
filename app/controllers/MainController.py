@@ -6,11 +6,15 @@ from app.forms.DataUserInputForm import DataUserInputForm
 
 @app.route('/', methods=['GET'])
 def index():
-    return "Hello World!"
+    template = render_template('index.html')
+
+    return template
 
 @app.route('/train', methods=['GET'])
 def train():
-    return "train"
+    template = render_template('train.html')
+
+    return template
 
 @app.route('/guess/<string:type>', methods=['GET','POST'])
 def guess(type, positive=None):
