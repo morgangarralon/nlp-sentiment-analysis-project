@@ -1,28 +1,22 @@
- <!-- TODO -->
-<html>
-    <head>
-        {% if title %}
-        <title>{{ title }} - microblog</title>
-        {% else %}
-        <title>microblog</title>
+{% extends "base.html" %}
+{% block title %}User Input{% endblock %}
+{% block content %}
+    <form action="{{ url_for('guess', type='user') }}" method="post">
+        {% if form.errors.items() %}
+            <div class="error-form">
+                {% for field, errors in form.errors.items() %}
+                    <div class="error-item">
+                        {{ form[field].label }}: {{ ', '.join(errors) }}
+                    </div>
+                {% endfor %}
+            </div>
         {% endif %}
-    </head>
-    <body>
-        <div>
-            Microblog:
-            <a href="/index">Home</a>
-            <a href="/login">Login</a>
+        <div class="input text">
+            {{ form["field_data_input"].label }} {{ form["field_data_input"] }}
         </div>
-        <hr>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
-    </body>
-</html>
+        <div class="input submit">
+            {{ form["button_submit"] }}
+        </div>
+        {{ form.csrf_token }}
+    </form>
+{% endblock %}

@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+        <title>{% block title %}{% endblock %} - NLP Sentiment Analysis</title>
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        <div>
+            NLP Sentiment Analysis:
+            <a href="/">Home</a>
+            <a href="/train">Train</a>
+            <a href="/guess/user">Guess</a>
+        </div>
+        <hr>
+        <div id="flash">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class="flashes">
+                        {% for message in messages %}
+                            <div class="message_flash">{{ message }}</div>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+        <div id="footer">
+            {% block footer %}
+            &copy; Copyright 2020 by <a href="http://weare.us">us</a>.
+            {% endblock %}
+        </div>
+    </body>
+</html>

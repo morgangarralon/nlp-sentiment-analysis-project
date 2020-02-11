@@ -1,6 +1,6 @@
 # from ...app import app # with 'flask run' command
 from app import app # with Visual Studio Code
-from flask import render_template
+from flask import render_template, redirect, request, url_for, flash
 from app.models.Guesser import Guesser
 from app.forms.DataUserInputForm import DataUserInputForm
 
@@ -12,16 +12,19 @@ def index():
 def train():
     return "train"
 
-@app.route('/guess/<string:type>', methods=['GET'])
-def guess(type):
-    guesser = Guesser(type)
+@app.route('/guess/<string:type>', methods=['GET','POST'])
+def guess(type, positive=None):
+    template = 'error'
     if type == "user":
         form_user = DataUserInputForm()
-
-        return render_template('UserInputForm.html', form=form_user)
+        if form_user.validate_on_submit():
+            flash('{}_tsé'.format(request.form.get('field_data_input')))
+            print('form validated')
+            return redirect(url_for('guess', type='user'))
+        template = render_template('userInputForm.html', form=form_user, positive=positive)
     elif type == "twitter":
-        print('twitter')
+        template ='twitter'
     else:
-        print('error')
+        template = 'error'
 
-    return "guess"
+    return template
