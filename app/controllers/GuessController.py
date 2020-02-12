@@ -9,8 +9,9 @@ def guess(type, positive=None):
     if type == "user":
         form_user = DataUserInputForm()
         if form_user.validate_on_submit():
-            flash('{}_tsé'.format(request.form.get('field_data_input')))
-            print('form validated')
+            guesser = Guesser()
+            guesser.loadGuesser('LogisticRegression.model')
+            flash('{}{}'.format(guesser.getGuess(request.form.get('field_data_input')), request.form.get('field_data_input')))
             return redirect(url_for('guess', type='user'))
         template = render_template('userInputForm.html', form=form_user, positive=positive)
     elif type == "twitter":
