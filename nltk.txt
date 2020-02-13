@@ -1,4 +1,3 @@
-stem
 corpus
 tokenize
 stopwords
