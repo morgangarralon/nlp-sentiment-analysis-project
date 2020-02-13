@@ -2,3 +2,4 @@ stem
 corpus
 tokenize
 stopwords
+corpora/stopwords
