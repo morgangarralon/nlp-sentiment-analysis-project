@@ -4,7 +4,7 @@ from app.models.Guesser import Guesser
 from app.forms.DataUserInputForm import DataUserInputForm
 
 @app.route('/guess/<string:type>', methods=['GET','POST'])
-def guess(type, positive=None):
+def guess(type, form=None, positive=None):
     template = 'error'
     if type == "user":
         form_user = DataUserInputForm()
@@ -12,7 +12,7 @@ def guess(type, positive=None):
             guesser = Guesser()
             guesser.loadGuesser('LogisticRegression.model')
             flash('{}{}'.format(guesser.getGuess(request.form.get('field_data_input')), request.form.get('field_data_input')))
-            return redirect(url_for('guess', type='user', form=form_user))
+            # return redirect(url_for('guess', type='user', form=form_user))
         template = render_template('userInputForm.html', form=form_user, positive=positive)
     elif type == "twitter":
         template ='twitter'
