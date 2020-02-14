@@ -17,6 +17,7 @@
         <div class="input submit">
             {{ form["button_submit"] }}
         </div>
-        {{ form.csrf_token }}
+        <!-- {{ form.csrf_token }} -->
+        {{ form.hidden_tag() }}
     </form>
 {% endblock %}

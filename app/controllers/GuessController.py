@@ -12,7 +12,7 @@ def guess(type, form=None, positive=None):
             guesser = Guesser()
             guesser.loadGuesser('LogisticRegression.model')
             flash('{}{}'.format(guesser.getGuess(request.form.get('field_data_input')), request.form.get('field_data_input')))
-            # return redirect(url_for('guess', type='user', form=form_user))
+            # return redirect(url_for('guess', type='user'))
         template = render_template('userInputForm.html', form=form_user, positive=positive)
     elif type == "twitter":
         template ='twitter'
