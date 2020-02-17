@@ -15,7 +15,7 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <div class="input text">
+        <div class="input text" id="input-guess">
             {{ form["field_data_input"].label }} {{ form["field_data_input"] }}
         </div>
         <button type="button" id="submit">Guess!</button>
@@ -28,7 +28,7 @@
     <hr/>
     <div>
         <div>
-            model name: {% if name is defined %} {{ name }} {% endif %}
+            model name: {% if model_chooser_info.name is defined %} {{ model_chooser_info.name }} {% endif %}
         </div>
         <div id='result'></div>
         <!-- model score : {% if score is defined %} {{ score }} {% endif %} -->
