@@ -20,4 +20,5 @@ class Guesser:
         self.model.score(data_input.getComputedDataset(), ['neg'])
         return self.model.predict(data_input.getComputedDataset())
 
-    
+    def getModel(self):
+        return self.model

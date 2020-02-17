@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% block title %}User Input{% endblock %}
+{% block head %}
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/forms.js') }}"></script>
+{% endblock %}
 {% block content %}
     <form action="{{ url_for('guess', type='user') }}" method="post">
         {% if form.errors.items() %}
@@ -14,10 +18,19 @@
         <div class="input text">
             {{ form["field_data_input"].label }} {{ form["field_data_input"] }}
         </div>
-        <div class="input submit">
+        <button type="button" id="submit">Guess!</button>
+        <!-- <div class="input submit">
             {{ form["button_submit"] }}
-        </div>
+        </div> -->
         <!-- {{ form.csrf_token }} -->
         {{ form.hidden_tag() }}
     </form>
+    <hr/>
+    <div>
+        <div>
+            model name: {% if name is defined %} {{ name }} {% endif %}
+        </div>
+        <div id='result'></div>
+        <!-- model score : {% if score is defined %} {{ score }} {% endif %} -->
+    </div>
 {% endblock %}
