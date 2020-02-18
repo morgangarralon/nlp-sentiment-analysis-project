@@ -33,44 +33,42 @@ function submitForm() {
     }); 
 }
 
+function validateForm() {
+    form = $('form')
+    input_guess = form.find("#input-guess #field_data_input").val()
+
+    if(input_guess.length > 2) {
+        $.ajax({
+            url: '/result',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+                document.getElementById("result").innerHTML= response;
+            },
+            error: function(error) {
+                console.log(error);
+                i = 0
+                result = false;
+                while(!result & i < 20) {
+                    result = submitForm();
+                    i++;
+                }
+            }
+        })
+    } else {
+        printInDiv("result", "please, type a lengther word (>2)")
+    }
+}
+
 // userInputForm
 $(document).ready(function() {
-    console.log('total');
     $(document).on("keydown", "form", function(event) { 
         if (event.key == "Enter") {
-            i = 0
-            result = false;
-            while(!result & i < 20) {
-                result = submitForm();
-                i++;
-            }
+            validateForm();
             event.preventDefault();
         }
     });
     $('#submit').click(function() {
-        form = $('form')
-        input_guess = form.find("#input-guess #field_data_input").val()
-
-        if(input_guess.length > 2) {
-            $.ajax({
-                url: '/result',
-                data: $('form').serialize(),
-                type: 'POST',
-                success: function(response) {
-                    document.getElementById("result").innerHTML= "result: " + response;
-                },
-                error: function(error) {
-                    console.log(error);
-                    i = 0
-                    result = false;
-                    while(!result & i < 20) {
-                        result = submitForm();
-                        i++;
-                    }
-                }
-            })
-        } else {
-            printInDiv("result", "please, type a lengther word (>2)")
-        }
+        validateForm();
     })
 })

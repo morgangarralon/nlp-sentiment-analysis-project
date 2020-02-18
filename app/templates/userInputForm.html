@@ -5,6 +5,9 @@
     <script src="{{ url_for('static', filename='js/forms.js') }}"></script>
 {% endblock %}
 {% block content %}
+    <div>
+        <h2>Try guessin' with {{ model_chooser_info.name }}</h2>
+    </div>
     <form action="{{ url_for('guess', type='user') }}" method="post">
         {% if form.errors.items() %}
             <div class="error-form">
@@ -25,11 +28,7 @@
         <!-- {{ form.csrf_token }} -->
         {{ form.hidden_tag() }}
     </form>
-    <hr/>
     <div>
-        <div>
-            model name: {% if model_chooser_info.name is defined %} {{ model_chooser_info.name }} {% endif %}
-        </div>
         <div id='result'></div>
         <!-- model score : {% if score is defined %} {{ score }} {% endif %} -->
     </div>

@@ -12,13 +12,15 @@ def guess(type):
         guesser = Guesser()
         guesser.loadGuesser('LogisticRegression.model')
         model = guesser.getModel()
+        # guesser.getSerializableSelf()
+        # session['guesser'] = guesser
         # session['guesser'] = json.dumps(guesser.__dict__)
         template = render_template('userInputForm.html', form=form_user, model_chooser_info = {
                                                                     'name': model.__class__.__name__
                                                                     # 'score': score
                                                                 })
-        if form_user.validate_on_submit():
-            flash('{}{}'.format(guesser.getGuess(request.form.get('field_data_input')), request.form.get('field_data_input')))
+        # if form_user.validate_on_submit():
+        #     flash('{}{}'.format(guesser.getGuess(request.form.get('field_data_input')), request.form.get('field_data_input')))
             # return redirect(url_for('guess', type='user'))
             # score = cross_val_score(model, x, y, scoring='accuracy', cv=10).mean()
     elif type == "twitter":
@@ -33,11 +35,12 @@ def getResult():
     # guesser = json.loads(session['guesser'])
     guesser = Guesser()
     guesser.loadGuesser('LogisticRegression.model')
-
+    # guesser = session['guesser']
+    
     if guesser is None:
         result = "ERROR"
     else:
-        list_result = [guesser.getGuess(request.form.get('field_data_input')), request.form.get('field_data_input')]
-        result = ' '.join([str(elem) for elem in list_result])
+        input_text = request.form.get('field_data_input')
+        input_status = guesser.getGuess(request.form.get('field_data_input'))
 
-    return result
+    return render_template('result.html', input_text=input_text, input_status=input_status)

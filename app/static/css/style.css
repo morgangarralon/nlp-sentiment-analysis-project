@@ -1,3 +1,40 @@
-.error-form{
+h1 {
+    font-size: 23px;
+}
+h2 {
+    font-size: 18px;
+}
+#header {
+    margin: 7px;
+    background-color: #ececec;
+}
+#footer {
+    margin: 7px;
+    background-color: #ececec;
+}
+#content {
+    margin: 7px;
+    margin-left: 2%;
+}
+/* .error-form {
     background-color: #FF00DD;
+} */
+#result {
+    width: 10%;
+}
+.positive-result {
+    background-color: #165a26;
+    border-color: #000000;
+    border-radius: 3px;
+    border-width: 2px;
+    color: #ffffff;
+    padding: 5%;
+}
+.negative-result {
+    background-color: #d84141;
+    border-color: #000000;
+    border-radius: 3px;
+    border-width: 2px;
+    color: #000000;
+    padding: 5%;
 }

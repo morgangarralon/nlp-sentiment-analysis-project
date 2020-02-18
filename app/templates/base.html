@@ -1,18 +1,19 @@
 <html>
     <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+        <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
         <title>{% block title %}{% endblock %} - NLP Sentiment Analysis</title>
         {% block head %}{% endblock %}
     </head>
     <body>
-        <div>
-            NLP Sentiment Analysis
+        <div id="header">
+            <h1>NLP Sentiment Analysis</h1>
             <a href="{{ url_for('index') }}">Home</a>
             <a href="{{ url_for('train') }}">Train</a>
             <a href="{{ url_for('guess', type='user') }}">Guess</a>
         </div>
-        <hr>
         <div id="flash">
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -27,7 +28,6 @@
         <div id="content">
             {% block content %}{% endblock %}
         </div>
-        <hr>
         <div id="footer">
             {% block footer %}
             &copy; Copyright 2020 by <a href="http://weare.us">us</a>.
