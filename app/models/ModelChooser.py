@@ -9,17 +9,11 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier,GradientBoostingClassifier
 import flask, joblib
+from app import app
 
 class ModelChooser:
     def __init__(self):
-        self.models = {
-            'LR': LogisticRegression(max_iter=4000),
-            # 'GB': GradientBoostingClassifier(),
-            # 'RF': RandomForestClassifier(),
-            # 'NB': GaussianNB(),
-            # 'SVC': SVC(max_iter=4000),
-            # 'KNN': KNeighborsClassifier()
-        }
+        self.models = app.config["MODELS"]
 
     def findBestModel(self, x, y):
         param_grid = {'C': [0.1,1,10,100]}

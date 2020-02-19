@@ -10,25 +10,14 @@ function submitForm() {
         data: form.serialize(),
         type: 'POST',
         success: function(response) {
-            printInDiv("result", "result: " + response)
+            printInDiv("result", response)
+
+            return true;
         },
         error: function(error) {
             console.log(error);
-            $.ajax({
-                url: '/result',
-                data: $('form').serialize(),
-                type: 'POST',
-                success: function(response) {
-                    printInDiv("result", "result: " + response)
 
-                    return true;
-                },
-                error: function(error) {
-                    console.log(error);
-
-                    return false;
-                }
-            });
+            return false;
         }
     }); 
 }
@@ -40,10 +29,10 @@ function validateForm() {
     if(input_guess.length > 2) {
         $.ajax({
             url: '/result',
-            data: $('form').serialize(),
+            data: form.serialize(),
             type: 'POST',
             success: function(response) {
-                document.getElementById("result").innerHTML= response;
+                printInDiv("result", response)
             },
             error: function(error) {
                 console.log(error);
