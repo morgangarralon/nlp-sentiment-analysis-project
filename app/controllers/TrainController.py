@@ -6,7 +6,7 @@ from app.models.ModelChooser import ModelChooser
 @app.route('/train', methods=['GET'])
 def train():
     data_training = DataTraining()
-    data_training.loadFromUrl("https://raw.githubusercontent.com/morgangarralon/nlp-sentiment-analysis/morgan/app/static/data/training/tweets.tsv?token=ABUFSBXTLPPZBGAV7H47IBC6JVMAA", separator = "\t")
+    data_training.loadFromUrl("https://nlp-sentiment-analysis-project.herokuapp.com/static/data/training/tweets.tsv", separator = "\t")
     data_training.cleanData()
     data_training.tokenizeData()
     data_training.addExtraFeatures()

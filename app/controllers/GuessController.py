@@ -1,3 +1,4 @@
+import joblib
 import builtins
 import jsonpickle
 import numpy as np
@@ -7,6 +8,9 @@ from sklearn.model_selection import cross_val_score
 from app.forms.DataUserInputForm import DataUserInputForm
 from flask import render_template, redirect, request, session, url_for, flash, json, g
 
+def loadGuesser(filename):
+    return joblib.load(filename)
+    
 def getGuesserFromContext(json_txt):
     tolisted_guesser = jsonpickle.decode(json_txt)
     NoneType = type(None)
@@ -50,8 +54,7 @@ def guess(type):
     template = 'error'
     if type == "user":
         form_user = DataUserInputForm()
-        guesser = Guesser()
-        guesser.loadGuesser('LogisticRegression.model')
+        guesser = loadGuesser('LogisticRegression.guesser')
         session_guesser = guesser.getSerializableSelf()
         session['guesser'] = session_guesser
         # guesser = Guesser()
@@ -63,8 +66,8 @@ def guess(type):
         # session.modified = True
         
         template = render_template('userInputForm.html', form=form_user, model_chooser_info = {
-                                                                    'name': model.__class__.__name__
-                                                                    # 'score': score
+                                                                    'name': model.__class__.__name__,
+                                                                    'score': guesser.score
                                                                 })
         # if form_user.validate_on_submit():
         #     flash('{}{}'.format(guesser.getGuess(request.form.get('field_data_input')), request.form.get('field_data_input')))

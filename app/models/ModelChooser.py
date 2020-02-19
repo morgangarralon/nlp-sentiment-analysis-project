@@ -8,6 +8,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier,GradientBoostingClassifier
+from app.models.Guesser import Guesser
 import flask, joblib
 from app import app
 
@@ -22,7 +23,7 @@ class ModelChooser:
         for name, classifier in self.models.items():
             score = cross_val_score(classifier, x, y, scoring='accuracy', cv=10).mean()
             if score > self.score:
-                self.score = score
+                self.score = float(score)
                 self.name = name
         grid_count = GridSearchCV(self.models[self.name], param_grid, cv=10)
         grid_count.fit(x, y)
@@ -33,7 +34,8 @@ class ModelChooser:
 
     def saveBestModel(self, filename):
         self.best_model.fit(self.train_x, self.train_y)
-        joblib.dump(self.best_model, filename + '.model')
+        guesser = Guesser(self.best_model, self.score)
+        joblib.dump(guesser, filename + '.guesser')
 
     def getScore(self):
         return self.score
