@@ -1,4 +1,4 @@
-from .DataInput import DataInput
+from app.models.DataInput import DataInput
 
 class DataInputApi(DataInput):
     def __init__(self, type = None):
