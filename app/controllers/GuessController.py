@@ -14,7 +14,7 @@ def loadGuesser(filename):
 def getGuesserFromContext(json_txt):
     tolisted_guesser = jsonpickle.decode(json_txt)
     NoneType = type(None)
-    primitive_type_names = (int, str, float, bool, type, object, NoneType)
+    primitive_type_names = (int, str, float, bool, type, object, NoneType, np.float64)
     builtin_type_names = tuple(filter(lambda x: not x.startswith('_'), dir(builtins)))
 
     getUntolistedGuesser([tolisted_guesser], [tolisted_guesser], (primitive_type_names + builtin_type_names))
@@ -37,17 +37,6 @@ def getUntolistedGuesser(mother_object, tolisted_object, primitive_types):
             # mother_object[0].__setattr__('tolisted_attributes', tolisted_attributes)
         elif type(attribute) not in primitive_types:
             getUntolistedGuesser(mother_object,[attribute], primitive_types)
-            
-# @app.before_request
-# def before_request():
-#     print("this function will run once")
-#     if 'guesser' not in session.keys():
-#         guesser = Guesser()
-#         guesser.loadGuesser('LogisticRegression.model')
-#         context_guesser = guesser.getSerializableSelf()
-#         g.guesser = context_guesser
-#         session['guesser'] = context_guesser
-#         print("executed once !!!")
 
 @app.route('/guess/<string:type>', methods=['GET'])
 def guess(type):
@@ -57,13 +46,8 @@ def guess(type):
         guesser = loadGuesser('LogisticRegression.guesser')
         session_guesser = guesser.getSerializableSelf()
         session['guesser'] = session_guesser
-        # guesser = Guesser()
-        # guesser.loadGuesser('LogisticRegression.model')
         guesser = getGuesserFromContext(session_guesser)
         model = guesser.getModel()
-        # session_guesser = guesser.getSerializableSelf()
-        # session['guesser'] = session_guesser
-        # session.modified = True
         
         template = render_template('userInputForm.html', form=form_user, model_chooser_info = {
                                                                     'name': model.__class__.__name__,
@@ -72,7 +56,6 @@ def guess(type):
         # if form_user.validate_on_submit():
         #     flash('{}{}'.format(guesser.getGuess(request.form.get('field_data_input')), request.form.get('field_data_input')))
             # return redirect(url_for('guess', type='user'))
-            # score = cross_val_score(model, x, y, scoring='accuracy', cv=10).mean()
     elif type == "twitter":
         template ='twitter'
     else:

@@ -39,7 +39,7 @@ class DataTraining:
         # Removing single character
         # self.dataset['clean_data'] = self.dataset['data'].apply(lambda x: (len(re.sub(r'\w | \w(?!\w+)', '', x))))
         # Removing special characters, numbers, punctuations
-        self.dataset['clean_data'] = self.dataset['clean_data'].apply(lambda x: re.sub(r'[^a-zA-Z# ]', '', x))
+        # self.dataset['clean_data'] = self.dataset['clean_data'].apply(lambda x: re.sub(r'[^a-zA-Z# ]', '', x))
 
     def tokenizeData(self):
         tokenized_data = self.dataset["clean_data"].apply(lambda x: word_tokenize(x))

@@ -39,7 +39,7 @@ class Guesser():
 
     def getSerializableSelf(self):
         NoneType = type(None)
-        primitive_type_names = (int, str, float, bool, type, object, NoneType)
+        primitive_type_names = (int, str, float, bool, type, object, NoneType, np.float64)
         builtin_type_names = tuple(filter(lambda x: not x.startswith('_'), dir(builtins)))
     
         self.getReadyForSerialization([self], self, (primitive_type_names + builtin_type_names))

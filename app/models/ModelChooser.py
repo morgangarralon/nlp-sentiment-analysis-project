@@ -17,7 +17,7 @@ class ModelChooser:
         self.models = app.config["MODELS"]
 
     def findBestModel(self, x, y):
-        param_grid = {'C': [0.1,1,10,100]}
+        param_grid =  app.config["MODEL_PARAM_GRID"]
         self.name = ''
         self.score = 0
         for name, classifier in self.models.items():
