@@ -26,7 +26,7 @@ def getUntolistedGuesser(mother_object, tolisted_object, primitive_types):
                         and not x.startswith('__')
                         and not x.endswith('__')]
 
-    for i, j in enumerate(list_attributes):
+    for i in range(len(list_attributes)):
         attribute = tolisted_object[0].__getattribute__(list_attributes[i])
         tolisted_attributes = mother_object[0].tolisted_attributes
         tolisted_attribute_name = (tolisted_object[0].__class__.__name__ + '.' + list_attributes[i])

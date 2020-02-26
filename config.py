@@ -20,13 +20,13 @@ class Config(object):
     MODEL_FOLDER = 'static/data/models/'
     MODEL_PARAM_GRID = {'C': np.logspace(-4, 4, 20)}
     MODELS = {
-        'LR': LogisticRegression(max_iter=10000, class_weight='balanced', random_state=33),
+        'LR': LogisticRegression(max_iter=4000, class_weight='balanced', random_state=33),
         # 'GB': GradientBoostingClassifier(n_estimators=5000, learning_rate=1.0, max_features=2, max_depth=2, random_state=33),
-        # 'DT': DecisionTreeClassifier(),
-        # 'RF': RandomForestClassifier(random_state=33),
+        # 'DT': DecisionTreeClassifier(class_weight='balanced', random_state=33),
+        # 'RF': RandomForestClassifier(class_weight='balanced', random_state=33),
         # 'KNN': KNeighborsClassifier(),
         # 'NB': GaussianNB(),
-        # 'SVC': SVC()
+        # 'SVC': SVC(class_weight='balanced', kernel='linear')
     }
 
     @property

@@ -1,4 +1,4 @@
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.stem.porter import PorterStemmer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
@@ -39,7 +39,7 @@ class DataTraining:
         # Removing single character
         # self.dataset['clean_data'] = self.dataset['data'].apply(lambda x: (len(re.sub(r'\w | \w(?!\w+)', '', x))))
         # Removing special characters, numbers, punctuations
-        # self.dataset['clean_data'] = self.dataset['clean_data'].apply(lambda x: re.sub(r'[^a-zA-Z# ]', '', x))
+        self.dataset['clean_data'] = self.dataset['clean_data'].apply(lambda x: re.sub(r'[^a-zA-Z# ]', '', x))
 
     def tokenizeData(self):
         tokenized_data = self.dataset["clean_data"].apply(lambda x: word_tokenize(x))
@@ -49,7 +49,7 @@ class DataTraining:
         self.dataset["tokenized_data"] = tokenized_data
 
     def countvectorizeData(self):
-        count_vectorizer = CountVectorizer()
+        count_vectorizer = TfidfVectorizer()
         count_vectorised_tweet = count_vectorizer.fit_transform(self.dataset['tokenized_data'])
         self.dataset_to_modelchooser = pd.concat([
             self.dataset['ratio_exclamation'],

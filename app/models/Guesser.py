@@ -51,7 +51,7 @@ class Guesser():
                             and not x.startswith('__')
                             and not x.endswith('__')]
 
-        for i, j in enumerate(list_attributes):
+        for i in range(len(list_attributes)):
             attribute = obj[0].__getattribute__(list_attributes[i])
             if type(attribute) == np.ndarray:
                 attribute = attribute.tolist()
