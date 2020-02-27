@@ -5,8 +5,8 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-app_config_file = os.getenv('APP_CONFIG_FILE', 'development')
-if app_config_file == 'production':
+app_config_file = os.getenv('APP_CONFIG_MODE', 'dev')
+if app_config_file == 'prod':
     app.config.from_object('config.ConfigProduction')
 else:
     app.config.from_object('config.ConfigDevelopment')

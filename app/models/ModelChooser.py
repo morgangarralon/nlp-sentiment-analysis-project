@@ -24,7 +24,7 @@ class ModelChooser:
         for name, classifier in self.models.items():
             start_time = time.time()
             print("\ntryin' w/ classifier ", name, " at ", time.strftime("%H:%M:%S", time.gmtime(start_time)))
-            score = cross_val_score(classifier, x, y, scoring='accuracy', cv=10).mean()
+            score = cross_val_score(classifier, x, y, scoring='accuracy', cv=10).mean() #TODO use 'f1' score instead
             if score > self.score:
                 self.score = float(score)
                 self.name = name
@@ -33,7 +33,7 @@ class ModelChooser:
         
         start_time = time.time()
         print("---\nthe best model is:", self.name, " at ", time.strftime("%H:%M:%S", time.gmtime(start_time)))
-        grid_count = GridSearchCV(self.models[self.name], param_grid, scoring='accuracy', cv=10)
+        grid_count = GridSearchCV(self.models[self.name], param_grid, scoring='accuracy', cv=10) #TODO use 'f1' score instead
         print("fittin' the model...")
         grid_count.fit(x, y)
 

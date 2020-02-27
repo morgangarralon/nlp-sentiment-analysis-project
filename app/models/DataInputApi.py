@@ -1,10 +1,12 @@
 from app.models.DataInput import DataInput
 
 class DataInputApi(DataInput):
-    def __init__(self, type = None):
-        self.type = type
+    api = None
 
-    def getOneData(self):
-        return None
+    def __init__(self, typ):
+        print("DataInputAPI called w/ typ =", typ)
+
+    def getData(self):
+        return self.api.getData()
 
     
