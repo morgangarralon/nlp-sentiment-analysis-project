@@ -5,6 +5,7 @@ import numpy as np
 from app import app
 from app.models.Guesser import Guesser
 from sklearn.model_selection import cross_val_score
+from app.models.DataInputTwitter import DataInputTwitter
 from app.forms.DataUserInputForm import DataUserInputForm
 from flask import render_template, redirect, request, session, url_for, flash, json, g
 
@@ -26,7 +27,7 @@ def getUntolistedGuesser(mother_object, tolisted_object, primitive_types):
                         and not x.startswith('__')
                         and not x.endswith('__')]
 
-    for i, j in enumerate(list_attributes):
+    for i in range(len(list_attributes)):
         attribute = tolisted_object[0].__getattribute__(list_attributes[i])
         tolisted_attributes = mother_object[0].tolisted_attributes
         tolisted_attribute_name = (tolisted_object[0].__class__.__name__ + '.' + list_attributes[i])
@@ -38,10 +39,10 @@ def getUntolistedGuesser(mother_object, tolisted_object, primitive_types):
         elif type(attribute) not in primitive_types:
             getUntolistedGuesser(mother_object,[attribute], primitive_types)
 
-@app.route('/guess/<string:type>', methods=['GET'])
-def guess(type):
+@app.route('/guess/<string:typ>', methods=['GET'])
+def guess(typ):
     template = 'error'
-    if type == "user":
+    if typ == "user":
         form_user = DataUserInputForm()
         guesser = loadGuesser('LogisticRegression.guesser')
         session_guesser = guesser.getSerializableSelf()
@@ -56,8 +57,9 @@ def guess(type):
         # if form_user.validate_on_submit():
         #     flash('{}{}'.format(guesser.getGuess(request.form.get('field_data_input')), request.form.get('field_data_input')))
             # return redirect(url_for('guess', type='user'))
-    elif type == "twitter":
-        template ='twitter'
+    elif typ == "twitter":
+        twitter = DataInputTwitter()
+        template = twitter.getData("love")
     else:
         template = 'error'
 
