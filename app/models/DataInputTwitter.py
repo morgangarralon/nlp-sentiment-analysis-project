@@ -17,6 +17,6 @@ class DataInputTwitter(DataInputApi):
     def getData(self, keyword, count=1):
         result = self.api.search.tweets(q=keyword, count=count, lang='en', include_entities=False)
 
-        return result
+        return result['statuses'][0]['text']
 
     

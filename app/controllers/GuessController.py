@@ -5,9 +5,10 @@ import numpy as np
 from app import app
 from app.models.Guesser import Guesser
 from sklearn.model_selection import cross_val_score
+from app.forms.DataTwitterInputForm import DataTwitterInputForm
 from app.models.DataInputTwitter import DataInputTwitter
 from app.forms.DataUserInputForm import DataUserInputForm
-from flask import render_template, redirect, request, session, url_for, flash, json, g
+from flask import render_template, redirect, request, session, url_for, flash, json
 
 def loadGuesser(filename):
     return joblib.load(filename)
@@ -41,27 +42,26 @@ def getUntolistedGuesser(mother_object, tolisted_object, primitive_types):
 
 @app.route('/guess/<string:typ>', methods=['GET'])
 def guess(typ):
-    template = 'error'
+    template_name = 'inputForm'
     if typ == "user":
-        form_user = DataUserInputForm()
-        guesser = loadGuesser('LogisticRegression.guesser')
-        session_guesser = guesser.getSerializableSelf()
-        session['guesser'] = session_guesser
-        guesser = getGuesserFromContext(session_guesser)
-        model = guesser.getModel()
-        
-        template = render_template('userInputForm.html', form=form_user, model_chooser_info = {
-                                                                    'name': model.__class__.__name__,
-                                                                    'score': guesser.score
-                                                                })
+        form = DataUserInputForm(field_type_input='user')
         # if form_user.validate_on_submit():
         #     flash('{}{}'.format(guesser.getGuess(request.form.get('field_data_input')), request.form.get('field_data_input')))
             # return redirect(url_for('guess', type='user'))
     elif typ == "twitter":
-        twitter = DataInputTwitter()
-        template = twitter.getData("love")
-    else:
-        template = 'error'
+        # twitter = DataInputTwitter()
+        form = DataTwitterInputForm(field_type_input='twitter')
+    
+    guesser = loadGuesser('LogisticRegression.guesser')
+    session_guesser = guesser.getSerializableSelf()
+    session['guesser'] = session_guesser
+    guesser = getGuesserFromContext(session_guesser)
+    model = guesser.getModel()
+    
+    template = render_template(template_name + '.html', form=form, model_chooser_info = {
+                                                                'name': model.__class__.__name__,
+                                                                'score': guesser.score
+                                                            })
 
     return template
 
@@ -76,7 +76,11 @@ def getResult():
         input_status = "neg"
     else:
         guesser = getGuesserFromContext(session_guesser)
+        input_type = request.form.get('field_type_input')
         input_text = request.form.get('field_data_input')
-        input_status = guesser.getGuess(request.form.get('field_data_input'))
+        if input_type == 'twitter':
+            twitter = DataInputTwitter()
+            input_text = twitter.getData(input_text)
+        input_status = guesser.getGuess(input_text)
 
     return render_template('result.html', input_text=input_text, input_status=input_status)
