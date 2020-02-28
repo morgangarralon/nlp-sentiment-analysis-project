@@ -62,12 +62,15 @@ h2 {
     left: -6px;
 }
 #result {
+    width: 100%;
+}
+#result-guess {
     width: 10%;
 }
 #field_data_input {
     width: 50%;
 }
-.positive-result {
+#result-positive {
     background-color: #165a26;
     border-color: #000000;
     border-radius: 3px;
@@ -75,11 +78,17 @@ h2 {
     color: #ffffff;
     padding: 5%;
 }
-.negative-result {
+#result-negative {
     background-color: #d84141;
     border-color: #000000;
     border-radius: 3px;
     border-width: 2px;
     color: #000000;
     padding: 5%;
+}
+#result-content {
+    text-align: center;
+}
+#origin-input {
+    font-style: italic;
 }

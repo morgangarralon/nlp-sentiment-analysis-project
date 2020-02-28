@@ -1,13 +1,19 @@
-{% if input_status == 'pos' %}
-    <div class="positive-result">
-        <div class="result-content">
-            POSITIVE
+
+<div id='result-guess'>
+    {% if input_status == 'pos' %}
+        <div id="result-positive">
+            <div id="result-content">
+                POSITIVE
+            </div>
         </div>
-    </div>
-{% else %}
-    <div class="negative-result">
-        <div class="result-content">
-            NEGATIVE
+    {% else %}
+        <div id="result-negative">
+            <div id="result-content">
+                NEGATIVE
+            </div>
         </div>
-    </div>
-{% endif %}
+    {% endif %}
+</div>
+<div id="origin-input">
+    {{ input_text }}
+</div>
