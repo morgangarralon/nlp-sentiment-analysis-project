@@ -34,9 +34,7 @@ def getUntolistedGuesser(mother_object, tolisted_object, primitive_types):
         tolisted_attribute_name = (tolisted_object[0].__class__.__name__ + '.' + list_attributes[i])
         if tolisted_attribute_name in tolisted_attributes:
             attribute = np.asarray(attribute)
-            # tolisted_attributes.remove(tolisted_attribute_name)
             tolisted_object[0].__setattr__(list_attributes[i], attribute)
-            # mother_object[0].__setattr__('tolisted_attributes', tolisted_attributes)
         elif type(attribute) not in primitive_types:
             getUntolistedGuesser(mother_object,[attribute], primitive_types)
 
@@ -44,13 +42,12 @@ def getUntolistedGuesser(mother_object, tolisted_object, primitive_types):
 def guess(typ):
     template_name = 'inputForm'
     if typ == "user":
-        form = DataUserInputForm(field_type_input='user')
+        form = DataUserInputForm(field_type_input='manual input')
         # if form_user.validate_on_submit():
         #     flash('{}{}'.format(guesser.getGuess(request.form.get('field_data_input')), request.form.get('field_data_input')))
             # return redirect(url_for('guess', type='user'))
     elif typ == "twitter":
-        # twitter = DataInputTwitter()
-        form = DataTwitterInputForm(field_type_input='twitter')
+        form = DataTwitterInputForm(field_type_input='Twitter')
     
     guesser = loadGuesser('LogisticRegression.guesser')
     session_guesser = guesser.getSerializableSelf()
@@ -67,20 +64,31 @@ def guess(typ):
 
 @app.route('/result', methods=['POST'])
 def getResult():
-    # guesser = Guesser()
-    # guesser = session.get('guesser', None)
-    # guesser.loadGuesser('LogisticRegression.model')
     session_guesser = session.get('guesser', None)
+
     if session_guesser is None:
-        input_text = "ERROR"
-        input_status = "neg"
+        input_text = "ERROR!"
+        input_status = "error"
     else:
+        is_guessable = True
         guesser = getGuesserFromContext(session_guesser)
         input_type = request.form.get('field_type_input')
         input_text = request.form.get('field_data_input')
-        if input_type == 'twitter':
-            twitter = DataInputTwitter()
-            input_text = twitter.getData(input_text)
-        input_status = guesser.getGuess(input_text)
+        output_text = input_text
 
-    return render_template('result.html', input_text=input_text, input_status=input_status)
+        if input_type == 'Twitter':
+            twitter = DataInputTwitter()
+            input_tweet = twitter.getData(input_text)
+
+            if input_tweet == None:
+                is_guessable = False
+            else:
+                output_text = input_tweet
+
+        if is_guessable is True:
+            input_status = guesser.getGuess(input_text)
+        else:
+            input_status = 'error'
+            output_text = 'There\'s no recent tweet with your query.'
+
+    return render_template('result.html', input_text=output_text, input_status=input_status)

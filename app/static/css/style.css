@@ -66,6 +66,7 @@ h2 {
 }
 #result-guess {
     width: 10%;
+    display: inline-block;
 }
 #field_data_input {
     width: 50%;
@@ -91,4 +92,5 @@ h2 {
 }
 #origin-input {
     font-style: italic;
+    margin-left: 2%;
 }

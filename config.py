@@ -19,7 +19,7 @@ class Config(object):
     # WTF_CSRF_SECRET_KEY = os.urandom(32)
     MODEL_FOLDER = 'static/data/models/'
     MODEL_PARAM_GRID = {'C': np.logspace(-4, 4, 20)}
-    DATABASE_URL = "postgres://dlvfjyawlvxzlv:2b097d102248b8595c29d54d8713cae282f3e13da21d9f7d3a93faf965ef8a8d@ec2-54-247-125-38.eu-west-1.compute.amazonaws.com:5432/deelvmnbkk1bh4"
+    DATABASE_URL = os.environ['DATABASE_URL']
     TWITTER_API_KEY = os.environ['TWITTER_API_KEY']
     TWITTER_API_SECRET = os.environ['TWITTER_API_SECRET']
     TWITTER_ACCESS_TOKEN = os.environ['TWITTER_ACCESS_TOKEN']
