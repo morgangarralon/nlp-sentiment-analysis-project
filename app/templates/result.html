@@ -1,16 +1,22 @@
-{% if input_status != 'error' %}
+{% if output_status != 'error' %}
     <span id='result-guess'>
-        {% if input_status == 'pos' %}
+        {% if output_status == 'pos' %}
             <div id="result-positive">
                 <div id="result-content">
                     POSITIVE
                 </div>
             </div>
-        {% elif input_status == 'neg' %}
+            <div id='score-prediction'>
+                  {{ '%0.2f'|format(100*output_score[1]) }}% of confidence
+            </div>
+        {% elif output_status == 'neg' %}
             <div id="result-negative">
                 <div id="result-content">
                     NEGATIVE
                 </div>
+            </div>
+            <div id='score-prediction'>
+                {{ '%0.2f'|format(100*output_score[0]) }}% of confidence
             </div>
         {% else %}
             <!-- error -->
@@ -18,5 +24,5 @@
     </span>
 {% endif %}
 <span id="origin-input">
-    {{ input_text }}
+    {{ output_text }}
 </span>

@@ -6,17 +6,22 @@ h2 {
 }
 #header {
     margin: 7px;
+    height: 10vh;
     padding: 7px;
+    min-height: 70px;
     background-color: #ececec;
 }
 #footer {
     margin: 7px;
+    height: 5vh;
     padding: 7px;
+    min-height: 40px;
     background-color: #ececec;
 }
 #content {
     margin: 7px;
     padding: 7px;
+    height: 80vh;
 }
 /* .error-form {
     background-color: #FF00DD;
@@ -65,7 +70,9 @@ h2 {
     width: 100%;
 }
 #result-guess {
-    width: 10%;
+    width: 15%;
+    min-width: 170px;
+    text-align: center;
     display: inline-block;
 }
 #field_data_input {
@@ -91,7 +98,7 @@ h2 {
     text-align: center;
 }
 #origin-input {
-    width: 88%;
+    width: 83%;
     float: right;
     margin-left: 2%;
     font-style: italic;

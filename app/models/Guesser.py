@@ -13,6 +13,7 @@ class Guesser():
     type = None
     model = None
     score = None
+    score_prediction = None
     tolisted_attributes = []
 
     def __init__(self, model = None, score = None, type = None):
@@ -30,9 +31,14 @@ class Guesser():
         data_input.tokenizeData()
         data_input.addExtraFeatures()
         data_input.countvectorizeData(type(self.model).__name__ + '.cv')
-        self.model.score(data_input.getComputedDataset(), ['neg'])
+        computed_dataset = data_input.getComputedDataset()
+        # self.model.score(data_input.getComputedDataset(), ['neg'])
+        self.score_prediction = self.model.predict_proba(computed_dataset)[0]
         
-        return self.model.predict(data_input.getComputedDataset())[0]
+        return self.model.predict(computed_dataset)[0]
+
+    def getScorePrediction(self):
+        return self.score_prediction
 
     def getModel(self):
         return self.model

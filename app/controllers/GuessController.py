@@ -72,6 +72,7 @@ def getResult():
         input_status = "error"
     else:
         is_guessable = True
+        score_prediction = None
         guesser = getGuesserFromContext(session_guesser)
         input_type = request.form.get('field_type_input')
         input_text = request.form.get('field_data_input')
@@ -88,8 +89,9 @@ def getResult():
 
         if is_guessable is True:
             input_status = guesser.getGuess(input_text)
+            score_prediction = guesser.getScorePrediction()
         else:
             input_status = 'error'
             output_text = 'There\'s no recent tweet with your query.'
 
-    return render_template('result.html', input_text=output_text, input_status=input_status)
+    return render_template('result.html', output_text=output_text, output_status=input_status, output_score=score_prediction)
