@@ -4,9 +4,9 @@ import jsonpickle
 import numpy as np
 from app import app
 from app.models.Guesser import Guesser
+from app.models.DataInputApi import DataInputApi
 from sklearn.model_selection import cross_val_score
-from app.forms.DataTwitterInputForm import DataTwitterInputForm
-from app.models.DataInputTwitter import DataInputTwitter
+from app.forms.DataApiInputForm import DataApiInputForm
 from app.forms.DataUserInputForm import DataUserInputForm
 from flask import render_template, redirect, request, session, url_for, flash, json
 
@@ -47,17 +47,18 @@ def guess(typ):
         #     flash('{}{}'.format(guesser.getGuess(request.form.get('field_data_input')), request.form.get('field_data_input')))
             # return redirect(url_for('guess', type='user'))
     elif typ == "twitter":
-        form = DataTwitterInputForm(field_type_input='Twitter')
+        form = DataApiInputForm(field_type_input='Twitter')
     
     guesser = loadGuesser('LogisticRegression.guesser')
     session_guesser = guesser.getSerializableSelf()
     session['guesser'] = session_guesser
     guesser = getGuesserFromContext(session_guesser)
     model = guesser.getModel()
+    model_name = ''.join(' ' + x if x.isupper() else x for x in model.__class__.__name__)
     
     template = render_template(template_name + '.html', form=form, model_chooser_info = {
-                                                                'name': model.__class__.__name__,
-                                                                'score': guesser.score
+                                                                'score': guesser.score,
+                                                                'name': model_name
                                                             })
 
     return template
@@ -77,7 +78,7 @@ def getResult():
         output_text = input_text
 
         if input_type == 'Twitter':
-            twitter = DataInputTwitter()
+            twitter = DataInputApi()
             input_tweet = twitter.getData(input_text)
 
             if input_tweet == None:

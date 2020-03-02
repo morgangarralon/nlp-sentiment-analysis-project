@@ -58,5 +58,4 @@ class Guesser():
                 obj[0].__setattr__(list_attributes[i], attribute)
                 self.tolisted_attributes.append(obj[0].__class__.__name__ + '.' + list_attributes[i])
             elif type(attribute) not in primitive_types:
-                print(type(attribute))
                 mother_obj.getReadyForSerialization([attribute], mother_obj, primitive_types)

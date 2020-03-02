@@ -8,6 +8,6 @@ class DataUserInputForm(FlaskForm):
                                                         Length(min=2, message=('Your input is too short.'))
                                                 ], render_kw={
                                                         'rows': 3,
-                                                        'placeholder': 'Put your input'})
+                                                        'placeholder': 'Please, put your input'})
         field_type_input = HiddenField('user')
         button_submit = SubmitField('Guess!')
