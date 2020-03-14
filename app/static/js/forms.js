@@ -1,5 +1,5 @@
 function printInDiv(id, input_html) {
-    document.getElementById(id).innerHTML= input_html;
+    document.getElementById(id).innerHTML = input_html;
 }
 
 function submitForm() {
@@ -10,7 +10,7 @@ function submitForm() {
         data: form.serialize(),
         type: 'POST',
         success: function(response) {
-            printInDiv("result", response)
+            printInDiv('result', response)
 
             return true;
         },
@@ -31,6 +31,9 @@ function validateForm() {
             url: '/result',
             data: form.serialize(),
             type: 'POST',
+            beforeSend: function() {
+                printInDiv('result', '<div id="loader"></div>')
+            },
             success: function(response) {
                 printInDiv("result", response)
             },

@@ -1,13 +1,28 @@
-{% if input_status == 'pos' %}
-    <div class="positive-result">
-        <div class="result-content">
-            POSITIVE
-        </div>
-    </div>
-{% else %}
-    <div class="negative-result">
-        <div class="result-content">
-            NEGATIVE
-        </div>
-    </div>
+{% if output_status != 'error' %}
+    <span id='result-guess'>
+        {% if output_status == 'pos' %}
+            <div id="result-positive">
+                <div id="result-content">
+                    POSITIVE
+                </div>
+            </div>
+            <div id='score-prediction'>
+                  {{ '%0.2f'|format(100*output_score[1]) }}% of confidence
+            </div>
+        {% elif output_status == 'neg' %}
+            <div id="result-negative">
+                <div id="result-content">
+                    NEGATIVE
+                </div>
+            </div>
+            <div id='score-prediction'>
+                {{ '%0.2f'|format(100*output_score[0]) }}% of confidence
+            </div>
+        {% else %}
+            <!-- error -->
+        {% endif %}
+    </span>
 {% endif %}
+<span id="origin-input">
+    {{ output_text }}
+</span>

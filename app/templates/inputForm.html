@@ -7,7 +7,7 @@
     <div>
         <!-- #TODO replace with
         <h2>{{ model_chooser_info.name }} is ready to guess with an f1 score of {{ '%0.2f'|format(100*model_chooser_info.score)  }})</h2> -->
-        <h2>Try guessin' with {{ model_chooser_info.name }} (accuracy: {{ '%0.2f'|format(100*model_chooser_info.score)  }}%)</h2>
+        <h2>Try guessin' with <b>{{ model_chooser_info.name }}</b> via <b>{{ form['field_type_input'].label }}</b> <!-- (accuracy: {{ '%0.2f'|format(100*model_chooser_info.score)  }}%) --></h2>
     </div>
     <form action="{{ url_for('guess', typ='user') }}" method="post">
         {% if form.errors.items() %}
@@ -22,6 +22,7 @@
         <div class="input text" id="input-guess">
             {{ form["field_data_input"] }}
         </div>
+        {{ form["field_type_input"] }}
         <button type="button" id="submit">Guess!</button>
         <!-- <div class="input submit">
             {{ form["button_submit"] }}
