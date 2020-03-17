@@ -9,5 +9,5 @@ class DataUserInputForm(FlaskForm):
                                                 ], render_kw={
                                                         'rows': 3,
                                                         'placeholder': 'Please, put your input'})
-        field_type_input = HiddenField('user')
+        field_type_input = HiddenField('manual input')
         button_submit = SubmitField('Guess!')

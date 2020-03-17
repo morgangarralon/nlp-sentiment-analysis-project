@@ -1,8 +1,17 @@
 h1 {
-    font-size: 23px;
+    font-size: 23px !important;
 }
 h2 {
-    font-size: 18px;
+    font-size: 18px !important;
+}
+a {
+    color: #424242 !important;
+}
+form {
+    width: 40%;
+    height: 100%;
+    vertical-align: top;
+    display: inline-block;
 }
 #header {
     margin: 7px;
@@ -23,9 +32,6 @@ h2 {
     padding: 7px;
     height: 80vh;
 }
-/* .error-form {
-    background-color: #FF00DD;
-} */
 .nav li{
     margin-left: 10px;
 }
@@ -66,53 +72,77 @@ h2 {
     top: 11px;
     left: -6px;
 }
+#crystal-ball {
+    display: inline-block;
+}
 #result {
-    width: 100%;
+    width: 59%;
+    height: 100%;
+    vertical-align: top;
+    display: inline-block;
+}
+#result-content {
+    display: block;
+    float: right;
+    height: 100%;
+    width: 75%;
+    padding-top: 5%;
 }
 #result-guess {
-    width: 15%;
-    min-width: 170px;
-    text-align: center;
+    width: 100%;
     display: inline-block;
 }
 #field_data_input {
-    width: 50%;
+    width: 100%;
 }
 #result-positive {
     background-color: #165a26;
-    border-color: #000000;
     border-radius: 3px;
-    border-width: 2px;
     color: #ffffff;
-    padding: 5%;
+    padding: 2px;
+    margin: 2px;
 }
 #result-negative {
     background-color: #d84141;
-    border-color: #000000;
     border-radius: 3px;
-    border-width: 2px;
     color: #000000;
-    padding: 5%;
-}
-#result-content {
-    text-align: center;
+    padding: 2px;
+    margin: 2px;
 }
 #origin-input {
-    width: 83%;
-    float: right;
-    margin-left: 2%;
+    border-color: #424242;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    margin-bottom: 10px;
     font-style: italic;
+    color: #424242;
+    padding: 2px;
+}
+#error-input {
+    border-color: #d84141;
+    margin-bottom: 10px;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    color: #424242;
+    padding: 2px;
 }
 #loader {
+    display: inline-block;
     border: 4px solid #ececec;
-    border-top: 4px solid #007bff;
+    border-top: 4px solid #424242;
     border-radius: 50%;
     width: 20px;
     height: 20px;
     animation: loader 2s linear infinite;
-  }
+}
+#loader-container {
+    vertical-align: middle;
+    padding-left: 7px;
+}
 
-  @keyframes loader {
+@keyframes loader {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-  }
+}

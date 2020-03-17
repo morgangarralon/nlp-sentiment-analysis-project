@@ -4,12 +4,8 @@
     <script src="{{ url_for('static', filename='js/forms.js') }}"></script>
 {% endblock %}
 {% block content %}
-    <div>
-        <!-- #TODO replace with
-        <h2>{{ model_chooser_info.name }} is ready to guess with an f1 score of {{ '%0.2f'|format(100*model_chooser_info.score)  }})</h2> -->
-        <h2>Try guessin' with <b>{{ model_chooser_info.name }}</b> via <b>{{ form['field_type_input'].label }}</b> <!-- (accuracy: {{ '%0.2f'|format(100*model_chooser_info.score)  }}%) --></h2>
-    </div>
     <form action="{{ url_for('guess', typ='user') }}" method="post">
+        <h2>Try guessin' with <b>{{ model_chooser_info.name }}</b> via <b>{{ form['field_type_input'].label }}</b> <!-- (accuracy: {{ '%0.2f'|format(100*model_chooser_info.score)  }}%) --></h2>
         {% if form.errors.items() %}
             <div class="error-form">
                 {% for field, errors in form.errors.items() %}
@@ -24,14 +20,17 @@
         </div>
         {{ form["field_type_input"] }}
         <button type="button" id="submit">Guess!</button>
+        <span id="loader-container"></span>
         <!-- <div class="input submit">
             {{ form["button_submit"] }}
         </div> -->
         <!-- {{ form.csrf_token }} -->
         {{ form.hidden_tag() }}
     </form>
-    <div>
-        <div id='result'></div>
+    <div id='result'>
+        <span id="crystal-ball"></span>
+        <span id='result-content'></span>
+        <script src="{{ url_for('static', filename='js/three-animations.js') }}"></script>
         <!-- model score : {% if score is defined %} {{ score }} {% endif %} -->
     </div>
 {% endblock %}
