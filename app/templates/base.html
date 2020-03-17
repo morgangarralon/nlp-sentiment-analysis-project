@@ -1,10 +1,11 @@
 <html>
     <head>
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+        <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/master/build/three.min.js"></script>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
-        <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
-        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
         <title>{% block title %}{% endblock %} - NLP Sentiment Analysis</title>
         {% block head %}{% endblock %}
     </head>

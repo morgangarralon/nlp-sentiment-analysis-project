@@ -11,13 +11,14 @@ function submitForm() {
         type: 'POST',
         success: function(response) {
             printInDiv('result', response)
-
-            return true;
+            if($('#result-negative').length) {
+                guess_result = 'negative';
+            } else {
+                guess_result = 'positive';
+            }
         },
         error: function(error) {
-            console.log(error);
-
-            return false;
+            guess_result = null;
         }
     }); 
 }
@@ -32,23 +33,32 @@ function validateForm() {
             data: form.serialize(),
             type: 'POST',
             beforeSend: function() {
-                printInDiv('result', '<div id="loader"></div>')
+                printInDiv('loader-container', '<span id="loader"></span>');
             },
             success: function(response) {
-                printInDiv("result", response)
+                printInDiv("result-content", response)
+                printInDiv('loader-container', '')
+                if($('#result-negative').length) {
+                    guess_result = 'negative';
+                } else if ($('#result-positive').length) {
+                    guess_result = 'positive';
+                } else {
+                    guess_result = 'error'
+                }
             },
             error: function(error) {
-                console.log(error);
                 i = 0
                 result = false;
                 while(!result & i < 20) {
                     result = submitForm();
                     i++;
                 }
+                guess_result = null;
             }
         })
     } else {
-        printInDiv("result", "please, type a lengther word (>2)")
+        guess_result = null;
+        printInDiv("result-content", '<div id="error-input">Please, type a lengther word (>2)</div>')
     }
 }
 
