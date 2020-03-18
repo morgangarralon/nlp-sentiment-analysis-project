@@ -6,6 +6,6 @@ class DataApiInputForm(FlaskForm):
         field_data_input = TextField('Put your input', [
                                                         DataRequired(),
                                                         Length(min=2, message=('Your input is too short.'))
-                                                ], render_kw={'placeholder': 'Please, write some keywords'})
+                                                ], render_kw={'placeholder': 'Please, write some keywords to get the last related tweet'})
         field_type_input = HiddenField('Twitter')
         button_submit = SubmitField('Guess!')
