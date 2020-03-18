@@ -10,11 +10,14 @@ function submitForm() {
         data: form.serialize(),
         type: 'POST',
         success: function(response) {
-            printInDiv('result', response)
+            printInDiv("result-content", response)
+            printInDiv('loader-container', '')
             if($('#result-negative').length) {
                 guess_result = 'negative';
-            } else {
+            } else if ($('#result-positive').length) {
                 guess_result = 'positive';
+            } else {
+                guess_result = 'error';
             }
         },
         error: function(error) {
@@ -43,7 +46,7 @@ function validateForm() {
                 } else if ($('#result-positive').length) {
                     guess_result = 'positive';
                 } else {
-                    guess_result = 'error'
+                    guess_result = 'error';
                 }
             },
             error: function(error) {
