@@ -6,7 +6,10 @@
         <script src="https://cdn.rawgit.com/mrdoob/three.js/master/build/three.min.js"></script>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
-        <title>{% block title %}{% endblock %} - NLP Sentiment Analysis</title>
+        <meta property='og:title' content='NLP Sentiment Analysis project'/>
+        <meta property='og:image' content="{{ url_for('static', filename='img/favicon.jpg') }}"/>
+        <meta property='og:description' content='This project is a sentiment detection through English, textual and natural language inputs.'/>
+        <title>{% block title %}{% endblock %} - NLP Sentiment Analysis project</title>
         {% block head %}{% endblock %}
     </head>
     <body>
@@ -21,10 +24,10 @@
                 <li class="dropdown">
                   <a href="#" data-toggle="dropdown" class="dropdown-toggle">Guess <b class="caret"></b></a>
                   <ul class="dropdown-menu" id="menu-guess">
-                    <li><a href="{{ url_for('guess', typ='user') }}">Manual input</a></li>
-                    <li class="divider"></li>
-                    <li><a href="{{ url_for('guess', typ='twitter') }}">Twitter API</a></li>
-                    <li><a href="#">Other APIs</a></li>
+                      <li><a href="{{ url_for('guess', typ='user') }}">Manual input</a></li>
+                      <li><a href="{{ url_for('guess', typ='twitter') }}">Twitter API</a></li>
+                      <li class="dropdown-divider"></li>
+                      <li><a href="#">Other APIs...<em> soon!</em></a></li>
                   </ul>
                 </li>
             </ul>
